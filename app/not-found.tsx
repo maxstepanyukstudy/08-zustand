@@ -1,4 +1,23 @@
+import { Metadata } from "next";
 import css from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "Not found - NoteHub",
+  description: "This page is not found - NoteHub",
+  openGraph: {
+    title: "Not found - NoteHub",
+    description: "This page is not found - NoteHub",
+    url: "", // todo: after deploy
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: "1471",
+        height: "980",
+        alt: "NoteHub Logo",
+      },
+    ],
+  },
+};
 
 export default function NotFound() {
   return (
