@@ -5,12 +5,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import NotesPageClient from "./Notes.client";
+import { APP_NOTES_FILTER_SLUG_PARAMS_INDEXES } from "@/lib/const";
 // import { Metadata } from "next";
-
-// todo? move to util
-export const PARAMS_INDEX = {
-  TAG_NAME: 0,
-};
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
@@ -52,7 +48,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
 
   const { slug } = await params;
 
-  const tagName = slug[PARAMS_INDEX.TAG_NAME];
+  const tagName = slug[APP_NOTES_FILTER_SLUG_PARAMS_INDEXES.TAG_NAME];
 
   // note: use the same values as in default states values in AppClient
   // todo? get from a config file for the page

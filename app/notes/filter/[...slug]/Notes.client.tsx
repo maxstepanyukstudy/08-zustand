@@ -14,11 +14,11 @@ import NoteList from "@/components/NoteList/NoteList";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import { useParams } from "next/navigation";
-import { PARAMS_INDEX } from "./page";
+import { APP_NOTES_FILTER_SLUG_PARAMS_INDEXES } from "@/lib/const";
 
 export default function NotesPageClient() {
   const { slug } = useParams<{ slug: string[] }>();
-  const tagName = slug[PARAMS_INDEX.TAG_NAME];
+  const tagName = slug[APP_NOTES_FILTER_SLUG_PARAMS_INDEXES.TAG_NAME];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");

@@ -7,3 +7,7 @@ export const validTags: NoteTag[] = [
   "Meeting",
   "Shopping",
 ];
+
+export const APP_NOTES_FILTER_SLUG_PARAMS_INDEXES = {
+  TAG_NAME: 0,
+};
