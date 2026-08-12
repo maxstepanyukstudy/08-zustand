@@ -4,3 +4,9 @@ export function formatDate(date: Date): string {
 
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${minutesFormat}`;
 }
+
+export function capitalizeOnlyFirstLetter(text: string): string {
+  const first = text.charAt(0).toUpperCase();
+  const rest = text.slice(1).toLocaleLowerCase();
+  return first + rest;
+}
