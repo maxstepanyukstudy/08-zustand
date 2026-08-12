@@ -7,6 +7,7 @@ import {
 import NotesPageClient from "./Notes.client";
 import { APP_NOTES_FILTER_SLUG_PARAMS_INDEXES } from "@/lib/const";
 import { Metadata } from "next";
+import { capitalizeOnlyFirstLetter } from "@/lib/util";
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
@@ -16,14 +17,16 @@ export async function generateMetadata({
   params,
 }: NotesPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const tagName = slug[0];
+  const tagName = slug[APP_NOTES_FILTER_SLUG_PARAMS_INDEXES.TAG_NAME];
+
+  const styledTagName = capitalizeOnlyFirstLetter(tagName);
 
   const metadata: Metadata = {
-    title: `${tagName} notes -  NoteHub`,
-    description: `${tagName} notes at NoteHub (a simple and efficient personal notes manager)`,
+    title: `${styledTagName} notes - NoteHub`,
+    description: `${styledTagName} notes at NoteHub (a simple and efficient personal notes manager)`,
     openGraph: {
-      title: `${tagName} notes -  NoteHub`,
-      description: `${tagName} notes at NoteHub (a simple and efficient personal notes manager)`,
+      title: `${styledTagName} notes -  NoteHub`,
+      description: `${styledTagName} notes at NoteHub (a simple and efficient personal notes manager)`,
       url: "", // todo: after deploy
       images: [
         {
