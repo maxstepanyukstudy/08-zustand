@@ -46,10 +46,9 @@ export default function NoteForm() {
   }
 
   function handleChange(
-    event:
-      | React.ChangeEvent<HTMLInputElement, HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>
-      | React.ChangeEvent<HTMLSelectElement, HTMLSelectElement>,
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) {
     setDraft({ ...draft, [event.target.name]: event.target.value });
   }
