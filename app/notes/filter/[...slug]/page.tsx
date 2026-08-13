@@ -31,8 +31,8 @@ export async function generateMetadata({
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
-          width: "1471",
-          height: "980",
+          width: 1471,
+          height: 980,
           alt: "NoteHub Logo",
         },
       ],
