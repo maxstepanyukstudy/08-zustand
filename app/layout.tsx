@@ -13,13 +13,14 @@ const roboto = Roboto({
   display: "swap",
 });
 
+// todo: export url to const
 export const metadata: Metadata = {
   title: "NoteHub",
   description: "NoteHub is a simple and efficient personal notes manager ",
   openGraph: {
     title: "NoteHub",
     description: "NoteHub is a simple and efficient personal notes manager ",
-    url: "", // todo: after deploy
+    url: "https://08-zustand-seven-pink.vercel.app/",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
