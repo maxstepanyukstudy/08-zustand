@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -47,6 +48,7 @@ export default function RootLayout({
           {children}
           <Footer />
           {modal}
+          <Toaster />
         </TanStackProvider>
       </body>
     </html>
