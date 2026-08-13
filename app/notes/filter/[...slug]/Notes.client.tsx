@@ -11,10 +11,9 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import Banner from "@/components/Banner/Banner";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import { useParams } from "next/navigation";
 import { APP_NOTES_FILTER_SLUG_PARAMS_INDEXES } from "@/lib/const";
+import Link from "next/link";
 
 export default function NotesPageClient() {
   const { slug } = useParams<{ slug: string[] }>();
@@ -22,7 +21,6 @@ export default function NotesPageClient() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isOpenModal, setIsModalOpen] = useState(false);
 
   const { data, isError, isFetching, isStale } = useQuery({
     queryKey: ["notes", tagName, searchQuery, currentPage],
@@ -52,9 +50,9 @@ export default function NotesPageClient() {
           />
         )}
 
-        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
 
       <main>
@@ -81,12 +79,6 @@ export default function NotesPageClient() {
           </>
         )}
       </main>
-
-      {isOpenModal && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onCancel={() => setIsModalOpen(false)} />
-        </Modal>
-      )}
     </div>
   );
 }
