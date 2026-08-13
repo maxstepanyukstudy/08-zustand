@@ -17,12 +17,10 @@ export const useNoteStore = create<NoteStore>()((set) => {
   return {
     draft: initialDraft,
 
-    setDraft: (value) => {
-      console.log("🚀 ~ value:", value)
+    setDraft: (value) =>
       set({
         draft: value,
-      });
-    },
+      }),
     clearDraft: () =>
       set({
         draft: initialDraft,
