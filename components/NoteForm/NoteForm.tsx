@@ -6,9 +6,14 @@ import toast from "react-hot-toast";
 import { createNote } from "@/lib/api";
 import { CreateNote, NoteTag } from "@/types/note";
 import Link from "next/link";
+import { useNoteStore } from "@/lib/store/noteStore";
+import { useRouter } from "next/navigation";
 
 export default function NoteForm() {
   const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const { draft, setDraft, clearDraft } = useNoteStore();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
@@ -32,20 +37,42 @@ export default function NoteForm() {
     };
 
     mutate(note, {
-      onSuccess: () => toast("Note created"),
+      onSuccess: () => {
+        toast("Note created");
+        clearDraft();
+        router.back();
+      },
     });
+  }
+
+  function handleChange(
+    event:
+      | React.ChangeEvent<HTMLInputElement, HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement, HTMLSelectElement>,
+  ) {
+    setDraft({ ...draft, [event.target.name]: event.target.value });
   }
 
   return (
     <form action={handleSubmit} className={css.form}>
       <div className={css.formGroup}>
         <label htmlFor="title">Title</label>
-        <input id="title" type="text" name="title" className={css.input} />
+        <input
+          value={draft.title}
+          onChange={handleChange}
+          id="title"
+          type="text"
+          name="title"
+          className={css.input}
+        />
       </div>
 
       <div className={css.formGroup}>
         <label htmlFor="content">Content</label>
         <textarea
+          value={draft.content}
+          onChange={handleChange}
           id="content"
           name="content"
           rows={8}
@@ -55,7 +82,13 @@ export default function NoteForm() {
 
       <div className={css.formGroup}>
         <label htmlFor="tag">Tag</label>
-        <select id="tag" name="tag" className={css.select}>
+        <select
+          value={draft.tag}
+          onChange={handleChange}
+          id="tag"
+          name="tag"
+          className={css.select}
+        >
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>
           <option value="Personal">Personal</option>
@@ -65,9 +98,13 @@ export default function NoteForm() {
       </div>
 
       <div className={css.actions}>
-        <Link className={css.cancelButton} href="/notes/filter/all">
+        <button
+          type="button"
+          className={css.cancelButton}
+          onClick={router.back}
+        >
           Cancel
-        </Link>
+        </button>
         <button type="submit" className={css.submitButton} disabled={isPending}>
           {isPending ? "Creating..." : "Create note"}
         </button>
