@@ -5,14 +5,40 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import NotesPageClient from "./Notes.client";
-
-// todo? move to util
-export const PARAMS_INDEX = {
-  TAG_NAME: 0,
-};
+import { APP_NOTES_FILTER_SLUG_PARAMS_INDEXES } from "@/lib/const";
+import { Metadata } from "next";
+import { capitalizeOnlyFirstLetter } from "@/lib/util";
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
+}
+
+export async function generateMetadata({
+  params,
+}: NotesPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tagName = slug[APP_NOTES_FILTER_SLUG_PARAMS_INDEXES.TAG_NAME];
+
+  const styledTagName = capitalizeOnlyFirstLetter(tagName);
+
+  const metadata: Metadata = {
+    title: `${styledTagName} notes - NoteHub`,
+    description: `${styledTagName} notes at NoteHub (a simple and efficient personal notes manager)`,
+    openGraph: {
+      title: `${styledTagName} notes -  NoteHub`,
+      description: `${styledTagName} notes at NoteHub (a simple and efficient personal notes manager)`,
+      url: `https://08-zustand-seven-pink.vercel.app/notes/filter/${tagName}`,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: "1471",
+          height: "980",
+          alt: "NoteHub Logo",
+        },
+      ],
+    },
+  };
+  return metadata;
 }
 
 export default async function NotesPage({ params }: NotesPageProps) {
@@ -20,7 +46,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
 
   const { slug } = await params;
 
-  const tagName = slug[PARAMS_INDEX.TAG_NAME];
+  const tagName = slug[APP_NOTES_FILTER_SLUG_PARAMS_INDEXES.TAG_NAME];
 
   // note: use the same values as in default states values in AppClient
   // todo? get from a config file for the page
