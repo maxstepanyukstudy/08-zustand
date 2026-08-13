@@ -100,7 +100,7 @@ export default function NoteForm() {
         <button
           type="button"
           className={css.cancelButton}
-          onClick={router.back}
+          onClick={() => router.back()}
         >
           Cancel
         </button>
