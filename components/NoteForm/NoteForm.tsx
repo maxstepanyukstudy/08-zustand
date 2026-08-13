@@ -7,9 +7,11 @@ import { createNote } from "@/lib/api";
 import { CreateNote, NoteTag } from "@/types/note";
 import Link from "next/link";
 import { useNoteStore } from "@/lib/store/noteStore";
+import { useRouter } from "next/navigation";
 
 export default function NoteForm() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { draft, setDraft, clearDraft } = useNoteStore();
 
@@ -35,7 +37,11 @@ export default function NoteForm() {
     };
 
     mutate(note, {
-      onSuccess: () => toast("Note created"),
+      onSuccess: () => {
+        toast("Note created");
+        clearDraft();
+        router.back();
+      },
     });
   }
 
